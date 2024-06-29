@@ -28,7 +28,7 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 
 func (l *RegisterLogic) Register(in *user.RegisterRequest) (*user.RegisterResponse, error) {
 	// 判断手机号是否已经注册
-	_, err := l.svcCtx.UserModel.FindOneByMobile(in.Mobile)
+	_, err := l.svcCtx.UserModel.FindOneByMobile(context.Background(), in.Mobile)
 	if err == nil {
 		return nil, status.Error(100, "该用户已存在")
 	}
